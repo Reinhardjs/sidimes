@@ -20,11 +20,11 @@ public interface DataSource<T> {
         void onDataNotAvailable();
     }
 
-    void getItems(@NonNull LoadItemsCallback callback);
+    void getItems(@NonNull LoadItemsCallback<T> callback);
 
-    void getItem(@NonNull String itemId, @NonNull GetItemCallback callback);
+    void getItem(@NonNull String itemId, @NonNull GetItemCallback<T> callback);
 
-    void saveItem(@NonNull T task);
+    void saveItem(@NonNull T item);
 
     void deleteAllItems();
 

@@ -2,10 +2,14 @@ package com.sidimes.data.pojo;
 
 public abstract class BasePojo {
 
-    public String mId;
+    public String id;
 
     public String getId(){
-        return this.mId;
+        return this.id;
+    }
+
+    public void setId(String id){
+        this.id = id;
     }
 
 }
