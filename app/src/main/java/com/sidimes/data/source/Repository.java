@@ -1,24 +1,21 @@
 package com.sidimes.data.source;
 
 import android.annotation.SuppressLint;
-
 import androidx.annotation.NonNull;
-
+import com.sidimes.data.models.BaseModel;
 import java.util.List;
-
 import static androidx.core.util.Preconditions.checkNotNull;
 
-public class Repository<T> implements DataSource<T> {
+public class Repository implements DataSource<BaseModel> {
 
-    private final DataSource mItemsLocalDataSource;
-    private final DataSource mItemsRemoteDataSource;
-
+    private final DataSource mRemoteDataSource;
+    private final DataSource mLocalDataSource;
 
     // Prevent direct instantiation.
     @SuppressLint("RestrictedApi")
     public Repository(@NonNull DataSource itemsRemoteDataSource, @NonNull DataSource itemsLocalDataSource) {
-        mItemsRemoteDataSource = checkNotNull(itemsRemoteDataSource);
-        mItemsLocalDataSource = checkNotNull(itemsLocalDataSource);
+        mRemoteDataSource = checkNotNull(itemsRemoteDataSource);
+        mLocalDataSource = checkNotNull(itemsLocalDataSource);
     }
 
     @SuppressLint("RestrictedApi")
@@ -27,39 +24,39 @@ public class Repository<T> implements DataSource<T> {
         checkNotNull(callback);
 
         // Query the local storage if available. If not, query the network.
-        mItemsLocalDataSource.getItems(new LoadItemsCallback<T>() {
+        mLocalDataSource.getItems(new LoadItemsCallback<BaseModel>() {
             @Override
-            public void onItemsLoaded(List<T> tasks) {
-                callback.onItemsLoaded(tasks);
+            public void onItemsLoaded(List<BaseModel> items) {
+                callback.onItemsLoaded(items);
             }
 
             @Override
             public void onDataNotAvailable() {
-                // getTasksFromRemoteDataSource(callback);
+
             }
         });
     }
 
     @Override
     public void getItem(@NonNull String itemId, @NonNull GetItemCallback callback) {
-
+        mLocalDataSource.getItem(itemId, callback);
     }
 
     @SuppressLint("RestrictedApi")
     @Override
-    public void saveItem(@NonNull T item) {
+    public void saveItem(@NonNull BaseModel item) {
         checkNotNull(item);
-        mItemsLocalDataSource.saveItem(item);
+        mLocalDataSource.saveItem(item);
     }
 
     @Override
     public void deleteAllItems() {
-
+        mLocalDataSource.deleteAllItems();
     }
 
     @Override
     public void deleteItem(@NonNull String itemId) {
-
+        mLocalDataSource.deleteItem(itemId);
     }
 
 }

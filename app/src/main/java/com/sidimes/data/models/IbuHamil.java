@@ -1,4 +1,4 @@
-package com.sidimes.data.pojo;
+package com.sidimes.data.models;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,7 +11,7 @@ import com.google.common.base.Objects;
 import java.util.UUID;
 
 @Entity(tableName = "ibuhamil")
-public final class IbuHamil extends BasePojo {
+public final class IbuHamil extends BaseModel {
 
     @PrimaryKey
     @NonNull

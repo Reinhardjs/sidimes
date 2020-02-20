@@ -12,6 +12,7 @@ import java.util.concurrent.Executors;
 public class AppExecutors {
 
     private static final int THREAD_COUNT = 3;
+    private static AppExecutors INSTANCE;
     private final Executor diskIO;
     private final Executor networkIO;
     private final Executor mainThread;
@@ -21,6 +22,17 @@ public class AppExecutors {
         this.diskIO = diskIO;
         this.networkIO = networkIO;
         this.mainThread = mainThread;
+    }
+
+    public static AppExecutors getInstance() {
+        if (INSTANCE == null) {
+            synchronized (AppExecutors.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new AppExecutors();
+                }
+            }
+        }
+        return INSTANCE;
     }
 
     public AppExecutors() {

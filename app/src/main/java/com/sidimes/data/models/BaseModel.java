@@ -1,6 +1,6 @@
-package com.sidimes.data.pojo;
+package com.sidimes.data.models;
 
-public abstract class BasePojo {
+public abstract class BaseModel {
 
     public String id;
 
