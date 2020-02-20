@@ -9,9 +9,10 @@ import com.sidimes.R;
 import com.sidimes.data.models.IbuHamil;
 import com.sidimes.data.source.DataSource;
 import com.sidimes.data.source.Repository;
-import com.sidimes.data.source.local.LocalDataSource;
+import com.sidimes.data.source.local.datasource.StuntingDataSource;
 import com.sidimes.data.source.local.LocalDatabase;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,23 +26,23 @@ public class MainActivity extends AppCompatActivity {
                 LocalDatabase.class, "SiDimes.db")
                 .build();
 
-        DataSource ibuhamilLocalDataSource = new LocalDataSource(database.ibuHamilDao());
+        DataSource ibuhamilLocalDataSource = new StuntingDataSource(database.ibuHamilDao());
         Repository ibuhamilRepository = new Repository(ibuhamilLocalDataSource, ibuhamilLocalDataSource);
 
         ibuhamilRepository.deleteAllItems();
 
         for (int i = 0; i < 10; i++) {
-            IbuHamil item = new IbuHamil();
-            item.setNama("aaa " + i);
+            IbuHamil item = new IbuHamil("aaa " + i);
             ibuhamilRepository.saveItem(item);
         }
 
         ibuhamilRepository.getItems(new DataSource.LoadItemsCallback<IbuHamil>() {
             @Override
             public void onItemsLoaded(List<IbuHamil> items) {
-                for (int i = 0; i < items.size(); i++) {
-                    Log.d("MYAPP", " ITEM : " + items.get(i).getNama());
-                }
+                Log.d("MYAPP", Arrays.toString(items.toArray()));
+//                for (int i = 0; i < items.size(); i++) {
+//                    Log.d("MYAPP", " ITEM : " + items.get(i).getId());
+//                }
             }
 
             @Override

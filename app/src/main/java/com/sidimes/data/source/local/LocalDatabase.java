@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase;
 import com.sidimes.data.models.IbuHamil;
 import com.sidimes.data.source.local.dao.IbuHamilDao;
 
-@Database(entities = {IbuHamil.class}, version = 1, exportSchema = false)
+@Database(entities = {IbuHamil.class}, version = 2, exportSchema = false)
 public abstract class LocalDatabase extends RoomDatabase {
 
     private static LocalDatabase INSTANCE;

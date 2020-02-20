@@ -1,4 +1,4 @@
-package com.sidimes.data.source.local;
+package com.sidimes.data.source.local.datasource;
 
 import androidx.annotation.NonNull;
 import com.sidimes.data.models.BaseModel;
@@ -10,11 +10,11 @@ import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class LocalDataSource implements DataSource<BaseModel> {
+public class StuntingDataSource implements DataSource<BaseModel> {
 
     private BaseDao localDao;
 
-    public LocalDataSource(@NonNull BaseDao localDao) {
+    public StuntingDataSource(@NonNull BaseDao localDao) {
         this.localDao = localDao;
     }
 
